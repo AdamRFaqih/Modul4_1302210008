@@ -94,7 +94,7 @@ class PosisiKarakterGame
                         state = State.Tengkurap;
                     break;
                 case State.Jongkok:
-                    if (command == "E")
+                    if (command == "W")
                         state = State.Berdiri;
                     else if (command == "S")
                         state = State.Tengkurap;
