@@ -5,6 +5,11 @@
         string masukan = Console.ReadLine();
         KodeBuah kodeBuah = new KodeBuah();
         kodeBuah.getKodeBuah(masukan);
+
+
+        //SOAL2
+        PosisiKarakterGame posisiKarakterGame = new PosisiKarakterGame();
+        posisiKarakterGame.PlayerStateMachine();
     }
 }
 
@@ -64,5 +69,62 @@ class KodeBuah
                 break;
         }
         Console.WriteLine("Kode " + kode[(int)state]);
+    }
+}
+
+class PosisiKarakterGame
+{
+    enum State { Tengkurap, Jongkok, Berdiri, Terbang };
+    public void PlayerStateMachine()
+    {
+        State state = State.Berdiri;
+        string command;
+        string[] screenName = { "Tengkurap", "Jongkok", "Berdiri", "Terbang" };
+        Console.WriteLine("Player " + screenName[(int)state]);
+        Console.Write("Masukan Command: ");
+        command = Console.ReadLine();
+        while (command != "E")
+        {
+            switch (state)
+            {
+                case State.Tengkurap:
+                    if (command == "W")
+                        state = State.Jongkok;
+                    else
+                        state = State.Tengkurap;
+                    break;
+                case State.Jongkok:
+                    if (command == "E")
+                        state = State.Berdiri;
+                    else if (command == "S")
+                        state = State.Tengkurap;
+                    else
+                        state = State.Jongkok;
+                    break;
+                case State.Berdiri:
+                    if (command == "W")
+                    {
+                        Console.WriteLine("Posisi TakeOFF");
+                        state = State.Terbang;
+                    }
+                    else if (command == "S")
+                        state = State.Jongkok;
+                    else
+                        state = State.Berdiri;
+                    break;
+                case State.Terbang:
+                    if (command == "S")
+                        state = State.Berdiri;
+                    else if (command == "X") { Console.WriteLine("Posisi Landing"); 
+                    state = State.Jongkok;}
+                    else
+                        state = State.Terbang;
+                    break;
+            }
+            Console.WriteLine("Player " + screenName[(int)state]);
+            Console.Write("Masukan Command: ");
+            command = Console.ReadLine();
+        }
+        Console.WriteLine("Game END");
     }
 }
